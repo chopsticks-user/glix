@@ -5,6 +5,7 @@ import Navbar from "@/lib/components/Navbar";
 import Footer from "@/lib/components/Footer";
 
 import {SpeedInsights} from "@vercel/speed-insights/next";
+import {Analytics} from "@vercel/analytics/next";
 
 export default function RootLayout(
     {children}: Readonly<{ children: React.ReactNode; }>
@@ -29,6 +30,7 @@ export default function RootLayout(
         {children}
         <Footer/>
         <SpeedInsights/>
+        <Analytics/>
         </body>
         </html>
     );
