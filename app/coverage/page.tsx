@@ -1,7 +1,8 @@
-"use client";
+// "use client";
+
+import MotionDiv from "./MotionDiv";
 
 import React from 'react';
-import {motion} from 'framer-motion';
 import {Globe2, Map} from 'lucide-react';
 
 const GlobalCoverage: React.FC = () => {
@@ -11,13 +12,7 @@ const GlobalCoverage: React.FC = () => {
             <section className="bg-slate-900 text-white py-24 relative overflow-hidden">
                 <div className="absolute inset-0 bg-blue-600/10 pointer-events-none"></div>
                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
-                    <motion.div
-                        initial={{opacity: 0, scale: 0.9}}
-                        animate={{opacity: 1, scale: 1}}
-                        className="inline-block px-4 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 font-bold text-sm mb-6 uppercase tracking-wider"
-                    >
-                        We go where your wallets go
-                    </motion.div>
+                    <MotionDiv/>
                     <h1 className="text-5xl md:text-7xl font-bold mb-6">
                         Truly Global. Limitless Reach.
                     </h1>

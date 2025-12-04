@@ -1,4 +1,4 @@
-import JoinWaitlistForm from "@/lib/components/JoinWaitListForm";
+import JoinWaitlistForm from "./JoinWaitListForm";
 
 import React from 'react';
 
