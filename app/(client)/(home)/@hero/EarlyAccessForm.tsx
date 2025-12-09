@@ -1,6 +1,6 @@
 "use client";
 
-import useWaitlistFormState from "@/lib/hooks/useWaitlistFormState";
+import useWaitlistFormState from "@/app/(client)/(routes)/join-waitlist/useWaitlistFormState";
 
 import React from "react";
 import {ArrowRight} from 'lucide-react';

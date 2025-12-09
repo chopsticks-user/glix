@@ -1,6 +1,6 @@
 "use server";
 
-import db from "@/lib/utils/mongodb";
+import db from "@/lib/mongodb";
 
 import {z} from 'zod';
 

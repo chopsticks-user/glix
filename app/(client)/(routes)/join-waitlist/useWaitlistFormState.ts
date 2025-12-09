@@ -1,4 +1,4 @@
-import addToWaitlist from "@/lib/actions/addToWaitlist";
+import addToWaitlist from "@/app/(client)/(routes)/join-waitlist/addToWaitlist";
 
 import {useActionState} from "react";
 

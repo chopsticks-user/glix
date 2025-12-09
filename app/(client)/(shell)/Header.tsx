@@ -26,7 +26,7 @@ const Header: React.FC = () => {
         >
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/public" className="flex items-center gap-2 cursor-pointer group">
+                <Link href="/" className="flex items-center gap-2 cursor-pointer group">
                     <img
                         src="https://uploads.onecompiler.io/43y6nw4pw/446bhcjxw/logo.png"
                         alt="Glix Logo"

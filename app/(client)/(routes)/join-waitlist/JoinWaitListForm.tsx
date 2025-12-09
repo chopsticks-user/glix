@@ -1,6 +1,6 @@
 "use client";
 
-import useWaitlistFormState from "@/lib/hooks/useWaitlistFormState";
+import useWaitlistFormState from "@/app/(client)/(routes)/join-waitlist/useWaitlistFormState";
 
 const JoinWaitlistForm = () => {
     const [state, action, pending] = useWaitlistFormState();

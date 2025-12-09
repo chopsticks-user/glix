@@ -1,7 +1,7 @@
 import "./globals.css";
-import Header from "@/app/(shell)/Header";
-import Footer from "@/app/(shell)/Footer";
-import Vercel from "@/app/(shell)/Vercel";
+import Header from "@/app/(client)/(shell)/Header";
+import Footer from "@/app/(client)/(shell)/Footer";
+import Vercel from "@/app/(client)/(shell)/Vercel";
 
 import React from "react";
 
