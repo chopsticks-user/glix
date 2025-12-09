@@ -5,7 +5,7 @@ import {motion} from 'framer-motion';
 import {Menu, X} from 'lucide-react';
 import Link from 'next/link';
 
-const Navbar: React.FC = () => {
+const Header: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
         >
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 cursor-pointer group">
+                <Link href="/public" className="flex items-center gap-2 cursor-pointer group">
                     <img
                         src="https://uploads.onecompiler.io/43y6nw4pw/446bhcjxw/logo.png"
                         alt="Glix Logo"
@@ -83,4 +83,4 @@ const Navbar: React.FC = () => {
     );
 };
 
-export default Navbar;
+export default Header;

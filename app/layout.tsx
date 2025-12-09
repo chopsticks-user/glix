@@ -1,10 +1,9 @@
 import "./globals.css";
-import Navbar from "@/lib/components/Navbar";
-import Footer from "@/lib/components/Footer";
+import Header from "@/app/(shell)/Header";
+import Footer from "@/app/(shell)/Footer";
+import Vercel from "@/app/(shell)/Vercel";
 
 import React from "react";
-import {SpeedInsights} from "@vercel/speed-insights/next";
-import {Analytics} from "@vercel/analytics/next";
 
 export default function RootLayout(
     {children}: Readonly<{ children: React.ReactNode; }>
@@ -36,15 +35,14 @@ export default function RootLayout(
                     className="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-indigo-400/20 rounded-full blur-[128px] animate-blob animation-delay-4000 mix-blend-multiply"></div>
             </div>
             <div className="relative z-10 flex flex-col gap-20 pb-20">
-                <Navbar/>
+                <Header/>
                 <main className="flex flex-col gap-24 md:gap-32 min-h-[60vh]">
                     {children}
                 </main>
                 <Footer/>
             </div>
         </div>
-        <SpeedInsights/>
-        <Analytics/>
+        <Vercel/>
         </body>
         </html>
     );

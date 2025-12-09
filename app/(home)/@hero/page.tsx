@@ -1,4 +1,4 @@
-import styles from "./hero.module.css";
+import styles from "./page.module.css";
 import EarlyAccessForm from "./EarlyAccessForm";
 import VisualCenterPiece from "./VisualCenterPiece";
 
@@ -19,7 +19,7 @@ import React from "react";
  *
  * @author Quang Cap
  */
-export default function Hero() {
+export default function Page() {
     return (
         <section
             className="relative pt-32 md:pt-48 px-6 max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
