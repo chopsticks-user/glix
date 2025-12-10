@@ -2,9 +2,15 @@
 
 import {ActionState} from "@/lib/types";
 import env from "@/lib/env";
+import payload from "@/lib/payload";
 
 import {z} from 'zod';
-import {cookies} from "next/headers";
+import {cookies, headers as nextHeaders} from "next/headers";
+
+export async function auth() {
+    const headers = await nextHeaders();
+    return await payload.auth({headers, canSetHeaders: false});
+}
 
 const LoginSchema = z.object({
     email: z.email(),
@@ -32,19 +38,30 @@ export async function login(_prev: LoginActionState, formData: FormData)
     }
 
     const data = result.data;
+    const failureResponse = {
+        success: false,
+        message: "Authentication failed",
+        data: data,
+    };
+
     try {
-        await fetch(
-            `${env.url.server}/api/users/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: data.email,
-                    password: data.password,
-                }),
+        const res = await payload.login({
+            collection: "users",
+            data: {
+                email: data.email,
+                password: data.password,
             }
-        );
+        });
+
+        if (!res.token) {
+            return failureResponse;
+        }
+
+        (await cookies()).set("payload-token", res.token, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60,
+            sameSite: "strict",
+        });
 
         return {
             success: true,
@@ -55,32 +72,24 @@ export async function login(_prev: LoginActionState, formData: FormData)
             }
         };
     } catch (error: any) {
-        return {
-            success: false,
-            message: "Authentication failed",
-            data: data,
-        };
+        console.error(error);
+        return failureResponse;
     }
 }
 
 export async function logout() {
-    const cookieStore = await cookies();
-    const cookieHeader = cookieStore
-        .getAll()
-        .map(c => `${c.name}=${c.value}`)
-        .join("; ");
-
     try {
-        await fetch(
+        const res = await fetch(
             `${env.url.server}/api/users/logout?allSessions=true`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Cookie: cookieHeader,
+                    Cookie: `payload-token=${(await cookies()).get("payload-token")?.value}`,
                 },
             },
         );
+        console.log(res);
     } catch (error: any) {
         // todo
     }
@@ -94,9 +103,8 @@ export type ForgotActionState = ActionState<{ email: string }>;
 export async function forgotPassword(
     _prev: ForgotActionState, formData: FormData
 ): Promise<ForgotActionState> {
-    const result = LoginSchema.safeParse({
+    const result = ForgotSchema.safeParse({
         email: formData.get("email"),
-        password: formData.get("password"),
     });
 
     if (!result.success) {
@@ -112,15 +120,14 @@ export async function forgotPassword(
 
     const data = result.data;
     try {
-        await fetch(`${env.url.server}/api/users/forgot-password`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        const token = await payload.forgotPassword({
+            collection: "users",
+            data: {
                 email: data.email,
-            }),
+            },
         });
+
+        // todo: email the token to the user
 
         return {
             success: true,
@@ -164,16 +171,29 @@ export async function resetPassword(_prev: ResetActionState, formData: FormData)
     }
 
     const data = result.data;
+    const failureResponse = {
+        success: false,
+        message: "Failed to reset your password",
+        data: data,
+    };
     try {
-        await fetch(`${env.url.server}/api/users/reset-password`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                token: "", // todo
+        const res = await payload.resetPassword({
+            collection: "users",
+            data: {
+                token: data.token,
                 password: data.newPassword,
-            }),
+            },
+            overrideAccess: true,
+        });
+
+        if (!res.token) {
+            return failureResponse;
+        }
+
+        (await cookies()).set("payload-token", res.token, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60,
+            sameSite: "strict",
         });
 
         return {
@@ -185,23 +205,6 @@ export async function resetPassword(_prev: ResetActionState, formData: FormData)
             }
         };
     } catch (error: any) {
-        return {
-            success: false,
-            message: "Unknown error",
-            data: data,
-        };
+        return failureResponse;
     }
 }
-
-export async function me() {
-    const cookieStore = await cookies();
-    const cookieHeader = cookieStore
-        .getAll()
-        .map(c => `${c.name}=${c.value}`)
-        .join("; ");
-
-    await fetch(`${env.url.server}/api/users/me`, {
-        headers: {Cookie: cookieHeader},
-    });
-}
-

@@ -1,10 +1,10 @@
 "use client";
 
-import {redirect, useSearchParams} from "next/navigation";
-import React, {useActionState, useEffect, useState} from "react";
+import {useRouter, useSearchParams} from "next/navigation";
+import React, {Suspense, useActionState, useEffect, useState} from "react";
 import {resetPassword} from "@/services/auth";
 
-export default function Page() {
+function ResetForm() {
     const searchParams = useSearchParams();
     const [state, action, pending] = useActionState(
         resetPassword, {
@@ -19,10 +19,11 @@ export default function Page() {
     );
     const [confirmedNewPassword, setConfirmedNewPassword] = useState("");
 
-    // todo
+    const router = useRouter();
     useEffect(() => {
         if (state.success) {
-            redirect("/login");
+            router.refresh();
+            router.push("/login");
         }
     }, [state]);
 
@@ -70,4 +71,8 @@ export default function Page() {
             </form>
         </div>
     </div>
+}
+
+export default function Page() {
+    return <Suspense><ResetForm/></Suspense>
 }

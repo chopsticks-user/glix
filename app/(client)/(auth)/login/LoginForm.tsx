@@ -2,8 +2,9 @@
 
 import {login} from "@/services/auth";
 
-import React, {useActionState} from "react";
+import React, {useActionState, useEffect} from "react";
 import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 export default function LoginForm() {
     const [state, action, pending] = useActionState(
@@ -16,6 +17,14 @@ export default function LoginForm() {
             },
         }
     );
+
+    const router = useRouter();
+    useEffect(() => {
+        if (state.success) {
+            router.refresh();
+            router.push("/dashboard");
+        }
+    }, [state.success]);
 
     return <div className="bg-slate-50 min-h-screen flex items-center justify-center py-24 px-6">
         <div

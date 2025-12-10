@@ -25,7 +25,7 @@ const Users: CollectionConfig = {
     },
     auth: {
         tokenExpiration: 7200,
-        verify: false, // Quang Cap: turn this on when email verification is available
+        verify: false, // turn this on when email verification is available
         maxLoginAttempts: 5,
         lockTime: 600 * 1000,
         // loginWithUsername: {
