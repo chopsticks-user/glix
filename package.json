@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint"
   },
+  "type": "module",
   "dependencies": {
     "@payloadcms/db-mongodb": "^3.67.0",
     "@payloadcms/next": "^3.67.0",
@@ -15,16 +16,20 @@
     "@vercel/analytics": "^1.6.1",
     "@vercel/functions": "^3.3.4",
     "@vercel/speed-insights": "^1.3.1",
+    "class-variance-authority": "^0.7.1",
     "csv-stringify": "^6.6.0",
+    "dotenv": "^17.2.3",
     "graphql": "^16.12.0",
     "lucide-react": "^0.555.0",
     "mongodb": "^7.0.0",
     "motion": "^12.23.25",
     "next": "16.0.7",
     "payload": "^3.67.0",
+    "radix-ui": "^1.4.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "sharp": "^0.34.5",
+    "tailwind-merge": "^3.4.0",
     "zod": "^4.1.13"
   },
   "devDependencies": {
