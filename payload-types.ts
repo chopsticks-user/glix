@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    accounts: Account;
+    transactions: Transaction;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +80,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    accounts: AccountsSelect<false> | AccountsSelect<true>;
+    transactions: TransactionsSelect<false> | TransactionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -123,7 +127,11 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   avatar?: (string | null) | Media;
-  roles?: ('admin' | 'user')[] | null;
+  roles: ('admin' | 'user')[];
+  contacts?: (string | User)[] | null;
+  accounts?: (string | Account)[] | null;
+  transactions?: (string | Transaction)[] | null;
+  preferredAccount?: (string | null) | Account;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -163,6 +171,33 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "accounts".
+ */
+export interface Account {
+  id: string;
+  owner?: (string | null) | User;
+  provider: ('stripe' | 'paypal')[];
+  balance?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "transactions".
+ */
+export interface Transaction {
+  id: string;
+  sender?: (string | null) | User;
+  from: string | Account;
+  receiver: string | User;
+  to?: (string | null) | Account;
+  amount?: number | null;
+  status?: ('requested' | 'pending' | 'rejected' | 'accepted') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -192,6 +227,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'accounts';
+        value: string | Account;
+      } | null)
+    | ({
+        relationTo: 'transactions';
+        value: string | Transaction;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -242,6 +285,10 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   avatar?: T;
   roles?: T;
+  contacts?: T;
+  accounts?: T;
+  transactions?: T;
+  preferredAccount?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -276,6 +323,31 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "accounts_select".
+ */
+export interface AccountsSelect<T extends boolean = true> {
+  owner?: T;
+  provider?: T;
+  balance?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "transactions_select".
+ */
+export interface TransactionsSelect<T extends boolean = true> {
+  sender?: T;
+  from?: T;
+  receiver?: T;
+  to?: T;
+  amount?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

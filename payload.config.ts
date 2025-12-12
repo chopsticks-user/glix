@@ -1,6 +1,8 @@
-import Users from "./collections/Users/config";
-import Media from "./collections/Media";
 import env from "@/lib/env";
+import Users from "./collections/Users/config";
+import Media from "./collections/Media/config";
+import Accounts from "./collections/Accounts/config";
+import Transactions from "./collections/Transactions/config";
 
 import sharp from "sharp";
 import {lexicalEditor} from "@payloadcms/richtext-lexical";
@@ -8,6 +10,7 @@ import {mongooseAdapter} from "@payloadcms/db-mongodb";
 import {buildConfig} from "payload";
 import path from "path";
 import {fileURLToPath} from "url";
+import seed from "@/collections/common/seed";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -23,13 +26,6 @@ export default buildConfig({
         routes: {
             account: "/me",
         },
-        // components: {
-        //     views: {
-        //         login: {
-        //             Component: "@/components/dashboard/Login",
-        //         }
-        //     }
-        // },
     },
 
     routes: {
@@ -44,7 +40,7 @@ export default buildConfig({
 
     // Define and configure your collections in this array
     collections: [
-        Users, Media,
+        Users, Media, Accounts, Transactions,
     ],
 
     // Your Payload secret - should be a complex and secure string, unguessable
@@ -65,4 +61,11 @@ export default buildConfig({
     // This is optional - if you don't need to do these things,
     // you don't need it!
     sharp,
+
+    onInit: async (payload) => {
+        // If the `env` var `PAYLOAD_SEED` is set, seed the db
+        if (process.env.PAYLOAD_SEED) {
+            await seed(payload);
+        }
+    }
 });
