@@ -1,4 +1,4 @@
-import env from "@/lib/env";
+import env from "@/shared/lib/env";
 import Users from "./collections/Users/config";
 import Media from "./collections/Media/config";
 import Accounts from "./collections/Accounts/config";
@@ -24,12 +24,12 @@ export default buildConfig({
             baseDir: path.resolve(dirname),
         },
         routes: {
-            account: "/me",
+            account: "/account",
         },
     },
 
     routes: {
-        admin: "/dashboard",
+        admin: "/admin",
         api: "/api",
         graphQL: "/graphql",
         graphQLPlayground: "/graphql-playground",

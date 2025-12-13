@@ -1,6 +1,6 @@
 "use client";
 
-import {addToWaitlist} from "@/services/waitlist";
+import {addToWaitlist} from "@/shared/actions/waitlist";
 
 import React, {useActionState} from "react";
 import {ArrowRight} from 'lucide-react';

@@ -1,4 +1,4 @@
-import {logout} from "@/services/auth";
+import {logout} from "@/shared/actions/auth";
 
 import {redirect} from "next/navigation";
 

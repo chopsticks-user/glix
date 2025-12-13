@@ -1,6 +1,6 @@
 "use client";
 
-import {addToWaitlist} from "@/services/waitlist";
+import {addToWaitlist} from "@/shared/actions/waitlist";
 
 import {ArrowRight, Facebook, Github, Globe, Linkedin, Twitter} from 'lucide-react';
 import Link from 'next/link';

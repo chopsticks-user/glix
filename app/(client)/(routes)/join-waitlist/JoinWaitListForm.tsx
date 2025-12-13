@@ -1,6 +1,6 @@
 "use client";
 
-import {addToWaitlist} from "@/services/waitlist";
+import {addToWaitlist} from "@/shared/actions/waitlist";
 
 import {useActionState} from "react";
 

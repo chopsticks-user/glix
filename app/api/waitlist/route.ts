@@ -1,4 +1,4 @@
-import db from "@/lib/mongodb";
+import db from "@/shared/lib/mongodb";
 
 import {NextResponse} from "next/server";
 import {stringify} from "csv-stringify/sync";

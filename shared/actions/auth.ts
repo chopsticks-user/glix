@@ -1,8 +1,8 @@
 "use server";
 
-import {ActionState} from "@/lib/types";
-import env from "@/lib/env";
-import payload from "@/lib/payload";
+import {ActionState} from "@/shared/lib/types";
+import env from "@/shared/lib/env";
+import payload from "@/shared/lib/payload";
 
 import {z} from 'zod';
 import {cookies, headers as nextHeaders} from "next/headers";

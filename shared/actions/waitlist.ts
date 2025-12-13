@@ -1,7 +1,7 @@
 "use server";
 
-import db from "@/lib/mongodb";
-import {ActionState} from "@/lib/types";
+import db from "@/shared/lib/mongodb";
+import {ActionState} from "@/shared/lib/types";
 
 import {z} from 'zod';
 

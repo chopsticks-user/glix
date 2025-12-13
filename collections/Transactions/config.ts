@@ -1,8 +1,6 @@
 import {checkRole, isAdmin} from "@/collections/common";
-import {completeTransaction, initiateTransaction} from "@/services/payment";
 
 import {CollectionConfig} from "payload";
-import {Transaction} from "@/payload-types";
 
 const Transactions: CollectionConfig = {
     slug: "transactions",
@@ -90,22 +88,7 @@ const Transactions: CollectionConfig = {
         },
     ],
     hooks: {
-        afterChange: [
-            async ({doc, operation}) => {
-                if (operation === "create") {
-                    const res = await initiateTransaction(doc as Transaction);
-                    if (!res.ok) {
-                        throw new Error(`Failed to process your transaction.`);
-                    }
-                }
-            },
-            async ({doc, operation}) => {
-                if (operation === "create") {
-                    // await new Promise(res => setTimeout(res, 10000));
-                    await completeTransaction(doc as Transaction);
-                }
-            },
-        ],
+        afterChange: [],
     },
 };
 

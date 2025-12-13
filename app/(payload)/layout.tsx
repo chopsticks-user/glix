@@ -8,7 +8,7 @@ import config from '@payload-config'
 import type {ServerFunctionClient} from 'payload'
 import {handleServerFunctions, RootLayout} from '@payloadcms/next/layouts'
 import React from 'react'
-import {importMap} from '@/app/(payload)/dashboard/importMap.js'
+import {importMap} from '@/app/(payload)/admin/importMap.js'
 
 type Args = {
     children: React.ReactNode

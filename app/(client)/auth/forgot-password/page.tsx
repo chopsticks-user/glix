@@ -1,6 +1,6 @@
 "use client";
 
-import {forgotPassword} from "@/services/auth";
+import {forgotPassword} from "@/shared/actions/auth";
 import React, {useActionState} from "react";
 
 // todo: set timeout

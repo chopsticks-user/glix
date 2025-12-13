@@ -1,5 +1,5 @@
 import LoginForm from "./LoginForm";
-import {auth} from "@/services/auth";
+import {auth} from "@/shared/actions/auth";
 import {redirect} from "next/navigation";
 
 export default async function Page() {
