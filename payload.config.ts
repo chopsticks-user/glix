@@ -10,7 +10,6 @@ import {mongooseAdapter} from "@payloadcms/db-mongodb";
 import {buildConfig} from "payload";
 import path from "path";
 import {fileURLToPath} from "url";
-import seed from "@/collections/common/seed";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -65,7 +64,6 @@ export default buildConfig({
     onInit: async (payload) => {
         // If the `env` var `PAYLOAD_SEED` is set, seed the db
         if (process.env.PAYLOAD_SEED) {
-            await seed(payload);
         }
     }
 });
