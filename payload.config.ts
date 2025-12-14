@@ -1,4 +1,3 @@
-import env from "@/shared/lib/env";
 import Users from "./collections/Users/config";
 import Media from "./collections/Media/config";
 import Accounts from "./collections/Accounts/config";
@@ -15,8 +14,6 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
-    serverURL: env.url.server,
-
     admin: {
         user: Users.slug,
         importMap: {

@@ -25,7 +25,7 @@ function ResetForm() {
             router.refresh();
             router.push("/login");
         }
-    }, [state]);
+    }, [router, state]);
 
     return <div className="bg-slate-50 min-h-screen flex items-center justify-center py-24 px-6">
         <div
